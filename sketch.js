@@ -7,6 +7,17 @@ var engine, world, ground;
 var r1,r2, r3
 
 var c;
+var l;
+var p;
+function preload()
+{
+
+p=loadImage("paper.png")
+
+l= loadImage("dustbingreen.png")
+
+}
+
 
 function setup()
 {
@@ -75,6 +86,11 @@ function draw()
   rect(r3.position.x, r3.position.y, 220, 10);
 
     ellipse(c.position.x, c.position.y, 40,40);
+ imageMode(CENTER);
+
+image(p, c.position.x, c.position.y, 70, 70);
+
+ image(l, 900, 700, 240, 200);
 
 
 
