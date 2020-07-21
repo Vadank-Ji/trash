@@ -1,6 +1,7 @@
 const Engine = Matter.Engine;
 const Bodies = Matter.Bodies;
 const World=  Matter.World;
+const Constraint = Matter.Constraint;
 
 var engine, world, ground;
 
@@ -9,6 +10,7 @@ var r1,r2, r3
 var c;
 var l;
 var p;
+var string;
 function preload()
 {
 
@@ -22,12 +24,16 @@ l= loadImage("dustbingreen.png")
 function setup()
 {
 
+
+
 	createCanvas(1200, 800);
   engine = Engine.create();
   world = engine.world;
 
+  world.gravity.y = 2
 
  var is_static = { isStatic: true}
+
 
  var options = {
 
@@ -41,7 +47,7 @@ density:1.2
  ground = Bodies.rectangle(600, 800, 1200, 20, is_static)
 World.add(world, ground)
 
-  c = Bodies.circle(200, 700, 20, options)
+  c= Bodies.circle(200, 700, 20, options)
   World.add(world, c);
 
 
@@ -56,7 +62,7 @@ World.add(world, ground)
 
   c.restitution = 0.3
 
-
+  string = new Launcher(c, 200, 100, 80);
 
 
 }
@@ -90,21 +96,24 @@ function draw()
 
 image(p, c.position.x, c.position.y, 70, 70);
 
- image(l, 900, 700, 240, 200);
+image(l, 900, 700, 240, 200);
 
-
+string.display()
 
 
 }
 
-function keyPressed()
+
+function mouseDragged()
 {
 
-if(keyCode === UP_ARROW)
-{
-
- Matter.Body.applyForce(c, c.position,{x:70, y:-70});
+  Matter.Body.setPosition(c, {x:mouseX, y: mouseY})
 
 }
+
+function mouseReleased()
+{
+
+  string.fly();
 
 }
